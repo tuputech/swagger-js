@@ -209,7 +209,7 @@ function formatValue(input, skipEncoding) {
   if (collectionFormat === 'multi') {
     return value.map(encodeFn)
   }
-  return value.map(encodeFn).join(SEPARATORS[collectionFormat])
+  return value.map(encodeFn)//.join(SEPARATORS[collectionFormat])
 }
 
 // Encodes an object using appropriate serializer.
@@ -254,7 +254,15 @@ export function mergeInQueryOrForm(req = {}) {
       const FormData = require('isomorphic-form-data') // eslint-disable-line global-require
       req.body = new FormData()
       Object.keys(form).forEach((key) => {
-        req.body.append(key, formatValue(form[key], true))
+        const value = formatValue(form[key], true)
+        if (Array.isArray(value)) {
+          for (let i = 0; i < value.length; i++) {
+            req.body.append(key, value[i])
+          }
+        }
+        else {
+          req.body.append(key, value)
+        }
       })
     }
     else {

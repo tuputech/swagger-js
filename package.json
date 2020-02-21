@@ -1,5 +1,5 @@
 {
-  "name": "swagger-client",
+  "name": "@tuputech/swagger-client",
   "version": "3.10.0",
   "description": "SwaggerJS - a collection of interfaces for OAI specs",
   "main": "dist/index.js",
